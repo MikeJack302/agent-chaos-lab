@@ -1,0 +1,35 @@
+{
+  "policies": [
+    {
+      "name": "no-recovery",
+      "max_retries": 0,
+      "retry_on": [],
+      "backoff_ms": 0,
+      "verify_ambiguous": false,
+      "unsafe_retry": false,
+      "enable_fallback": false
+    },
+    {
+      "name": "retry-everything",
+      "max_retries": 3,
+      "retry_on": ["timeout", "rate_limit", "transient", "partial_response", "schema_drift", "ambiguous_commit"],
+      "backoff_ms": 40,
+      "backoff_multiplier": 1,
+      "verify_ambiguous": false,
+      "unsafe_retry": true,
+      "enable_fallback": false
+    },
+    {
+      "name": "verified-bounded",
+      "max_retries": 2,
+      "retry_on": ["timeout", "rate_limit", "transient", "partial_response", "schema_drift", "ambiguous_commit"],
+      "backoff_ms": 80,
+      "backoff_multiplier": 2,
+      "verify_ambiguous": true,
+      "unsafe_retry": false,
+      "enable_fallback": true,
+      "max_cost_usd": 0.015,
+      "max_latency_ms": 5000
+    }
+  ]
+}

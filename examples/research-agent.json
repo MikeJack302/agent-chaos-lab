@@ -1,0 +1,81 @@
+{
+  "name": "research-agent",
+  "steps": [
+    {
+      "name": "search",
+      "cost_usd": 0.0004,
+      "latency_ms": 280,
+      "latency_jitter": 0.25,
+      "critical": true,
+      "idempotent": true,
+      "faults": {
+        "timeout": 0.04,
+        "rate_limit": 0.05,
+        "transient": 0.03,
+        "partial_response": 0.02,
+        "schema_drift": 0.01
+      },
+      "fallback": {
+        "success_probability": 0.96,
+        "cost_usd": 0.0008,
+        "latency_ms": 420
+      }
+    },
+    {
+      "name": "fetch_source",
+      "cost_usd": 0.0002,
+      "latency_ms": 190,
+      "latency_jitter": 0.3,
+      "critical": true,
+      "idempotent": true,
+      "faults": {
+        "timeout": 0.06,
+        "rate_limit": 0.02,
+        "partial_response": 0.05,
+        "schema_drift": 0.02
+      },
+      "fallback": {
+        "success_probability": 0.92,
+        "cost_usd": 0.0005,
+        "latency_ms": 310
+      }
+    },
+    {
+      "name": "write_audit_record",
+      "cost_usd": 0.0001,
+      "latency_ms": 85,
+      "latency_jitter": 0.15,
+      "critical": false,
+      "idempotent": false,
+      "faults": {
+        "transient": 0.02,
+        "ambiguous_commit": 0.07
+      },
+      "ambiguous_commit_probability": 0.65,
+      "verification": {
+        "cost_usd": 0.00005,
+        "latency_ms": 45
+      }
+    },
+    {
+      "name": "compose_answer",
+      "cost_usd": 0.0030,
+      "latency_ms": 760,
+      "latency_jitter": 0.2,
+      "critical": true,
+      "idempotent": true,
+      "faults": {
+        "timeout": 0.03,
+        "rate_limit": 0.04,
+        "transient": 0.02,
+        "partial_response": 0.03,
+        "schema_drift": 0.03
+      },
+      "fallback": {
+        "success_probability": 0.94,
+        "cost_usd": 0.0040,
+        "latency_ms": 980
+      }
+    }
+  ]
+}
