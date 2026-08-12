@@ -10,4 +10,5 @@ build/
 *.out.json
 *.png
 .edge-profile/
+.tmp-edge/
 .DS_Store
